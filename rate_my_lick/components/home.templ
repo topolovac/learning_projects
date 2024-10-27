@@ -1,0 +1,98 @@
+
+package components
+
+templ Home() {
+	<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			<title>Rate My Lick</title>
+			<script src="https://unpkg.com/htmx.org@2.0.3"></script>
+			<style>
+				body {
+					font-family: Arial, sans-serif;
+					text-align: center;
+					margin-top: 50px;
+				}
+
+				.main {
+					    width: 100%;
+						text-align: center;
+						display: flex;
+						flex-direction: column;
+						align-items: center;
+				}
+
+				.container {
+					margin-top: 25px;
+					width: 300px; 
+					display: flex;
+					flex-direction: column;
+					gap: 15px;
+				}
+    		</style>
+		</head>
+		<body>
+			<div class="main">
+				<h1>Create Audio Sample</h1>
+				<form
+					class="container"
+					hx-encoding="multipart/form-data"
+					hx-post="/publish-sample"
+				>
+					<input name="songname" type="text" placeholder="song name" required/>
+					<textarea name="songdescription" type="text" placeholder="short description" rows="3"></textarea>
+					<input id="audiosample" name="audiosample" type="file" required/>
+					<button type="submit">Publish Sample</button>
+				</form>
+				<div class="container">
+					Record Audio Sample
+					<button id="startButton">Start Recording</button>
+					<button id="stopButton" disabled>Stop Recording</button>
+					<h3>Recorded Audio:</h3>
+					<audio id="audioPlayback" controls></audio>
+				</div>
+			</div>
+		</body>
+		<script>
+    let mediaRecorder;
+    let recordedChunks = [];
+
+    document.getElementById('startButton').addEventListener('click', async () => {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      mediaRecorder = new MediaRecorder(stream);
+
+      document.getElementById('startButton').disabled = true;
+      document.getElementById('stopButton').disabled = false;
+
+      mediaRecorder.ondataavailable = (event) => {
+        if (event.data.size > 0) recordedChunks.push(event.data);
+      };
+
+      mediaRecorder.onstop = () => {
+        const audioBlob = new Blob(recordedChunks, { type: 'audio/webm' });
+        const audioUrl = URL.createObjectURL(audioBlob);
+        document.getElementById('audioPlayback').src = audioUrl;
+
+        document.getElementById('startButton').disabled = false;
+        document.getElementById('stopButton').disabled = true;
+        recordedChunks = [];
+
+
+ 		const audioFile = new File([audioBlob], "audioSample.webm", { type: "audio/webm" });
+  		const dataTransfer = new DataTransfer();
+  		dataTransfer.items.add(audioFile);
+		const sampleInput = document.getElementById("audiosample");
+		sampleInput.files = dataTransfer.files;
+      };
+
+      mediaRecorder.start();
+    });
+
+    document.getElementById('stopButton').addEventListener('click', () => {
+      mediaRecorder.stop();
+    });
+  </script>
+	</html>
+}

@@ -1,0 +1,1 @@
+<div>Succesfuly published sample. <a href=\"/dashboad\">See dashboard</a></div>
