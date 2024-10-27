@@ -1,0 +1,57 @@
+
+package components
+
+import (
+	"fmt"
+	"github.com/topolovac/learning_projects/rate_my_lick/services"
+)
+
+templ Licks(samples []services.Sample) {
+	<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			<title>Rate My Lick</title>
+			<script src="https://unpkg.com/htmx.org@2.0.3"></script>
+			<style>
+				body {
+					font-family: Arial, sans-serif;
+					text-align: center;
+					margin-top: 50px;
+				}
+
+				.main {
+					    width: 100%;
+						text-align: center;
+						display: flex;
+						flex-direction: column;
+						align-items: center;
+				}
+
+				.container {
+					margin-top: 25px;
+					width: 300px; 
+					display: flex;
+					flex-direction: column;
+					gap: 15px;
+				}
+    		</style>
+		</head>
+		<body>
+			<div class="main">
+				<h1>Licks Of The Day</h1>
+				<div class="container">
+					for _, sample := range samples {
+						<span>Name= { sample.Name }</span>
+						<span>Description= { sample.Description }</span>
+						<audio controls>
+							<source src={ fmt.Sprintf("/static/%s", sample.Filename) }/>
+							Your browser does not support the audio element.
+						</audio>
+					}
+				</div>
+			</div>
+		</body>
+	</html>
+}

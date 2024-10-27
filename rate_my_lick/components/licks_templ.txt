@@ -1,0 +1,6 @@
+<!doctype html><html lang=\"en\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>Rate My Lick</title><script src=\"https://unpkg.com/htmx.org@2.0.3\"></script><style>\n\t\t\t\tbody {\n\t\t\t\t\tfont-family: Arial, sans-serif;\n\t\t\t\t\ttext-align: center;\n\t\t\t\t\tmargin-top: 50px;\n\t\t\t\t}\n\n\t\t\t\t.main {\n\t\t\t\t\t    width: 100%;\n\t\t\t\t\t\ttext-align: center;\n\t\t\t\t\t\tdisplay: flex;\n\t\t\t\t\t\tflex-direction: column;\n\t\t\t\t\t\talign-items: center;\n\t\t\t\t}\n\n\t\t\t\t.container {\n\t\t\t\t\tmargin-top: 25px;\n\t\t\t\t\twidth: 300px; \n\t\t\t\t\tdisplay: flex;\n\t\t\t\t\tflex-direction: column;\n\t\t\t\t\tgap: 15px;\n\t\t\t\t}\n    \t\t</style></head><body><div class=\"main\"><h1>Licks Of The Day</h1><div class=\"container\">
+<span>Name= 
+</span> <span>Description= 
+</span> <audio controls><source src=\"
+\"> Your browser does not support the audio element.</audio>
+</div></div></body></html>
