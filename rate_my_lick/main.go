@@ -23,11 +23,17 @@ func main() {
 		sampleService: &services.SampleService{},
 	}
 
+	app.sampleService.CreateSample("sample 1", "description example 1", "tintuntun_20241027213536")
+	app.sampleService.CreateSample("sample 2", "description example 2", "tintuntun_20241027213536")
+	app.sampleService.CreateSample("sample 3", "description example 3", "tintuntun_20241027213536")
+	app.sampleService.CreateSample("sample 4", "description example 4", "tintuntun_20241027213536")
+	app.sampleService.CreateSample("sample 5", "description example 5", "tintuntun_20241027213536")
+
 	e := echo.New()
 	e.Static("/static", "static")
 
 	e.GET("/", app.HomeHandler)
-	e.GET("licks", app.LicksHandler)
+	e.GET("/create-lick", app.CreateLickHandler)
 	e.POST("/publish-sample", app.PublishSampleHandler)
 
 	err := e.Start(":3000")
@@ -46,11 +52,11 @@ func Render(ctx echo.Context, statusCode int, t templ.Component) error {
 }
 
 func (app *application) HomeHandler(c echo.Context) error {
-	return Render(c, http.StatusOK, components.Home())
+	return Render(c, http.StatusOK, components.Home(app.sampleService.GetSamples()))
 }
 
-func (app *application) LicksHandler(c echo.Context) error {
-	return Render(c, http.StatusOK, components.Licks(app.sampleService.GetSamples()))
+func (app *application) CreateLickHandler(c echo.Context) error {
+	return Render(c, http.StatusOK, components.CreateLick())
 }
 
 func (app *application) PublishSampleHandler(c echo.Context) error {
