@@ -6,7 +6,7 @@ import "github.com/topolovac/learning_projects/rate_my_lick/components/partials"
 templ CreateLick() {
 	@partials.Layout() {
 		<div class="main">
-			<h1>Create Audio Sample</h1>
+			<h1>Create Lick</h1>
 			<form
 				class="container"
 				hx-encoding="multipart/form-data"
@@ -15,7 +15,7 @@ templ CreateLick() {
 				<input name="songname" type="text" placeholder="song name" required/>
 				<textarea name="songdescription" type="text" placeholder="short description" rows="3"></textarea>
 				<input id="audiosample" name="audiosample" type="file" required/>
-				<button type="submit">Publish Sample</button>
+				<button type="submit">Publish Lick</button>
 			</form>
 			<div class="container">
 				Record Audio Sample

@@ -8,55 +8,12 @@ templ Layout() {
 			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 			<title>Rate My Lick</title>
 			<script src="https://unpkg.com/htmx.org@2.0.3"></script>
-			<style>
-				body {
-                    padding: 0;
-                    margin: 0;
-					font-family: Arial, sans-serif;
-					text-align: center;
-				}
-
-				.main {
-					    width: 100%;
-						text-align: center;
-						display: flex;
-						flex-direction: column;
-						align-items: center;
-				}
-
-				.container {
-					margin-top: 25px;
-					width: 300px; 
-					display: flex;
-					flex-direction: column;
-					gap: 15px;
-				}
-
-               .navbar {
-                display: flex;
-                justify-content: center;
-                background-color: #333;
-                padding: 10px;
-            }
-
-            .nav-item {
-                color: #f4f4f4;
-                text-decoration: none;
-                padding: 10px 20px;
-                margin: 0 10px;
-                transition: background 0.3s;
-            }
-
-            .nav-item:hover {
-                background-color: #555;
-                border-radius: 5px;
-            }
-    		</style>
+			<link rel="stylesheet" href="/static/style.css"/>
 		</head>
 		<body>
 			<nav class="navbar">
 				<a href="/" class="nav-item">Home</a>
-				<a href="/create-lick" class="nav-item">Create Link</a>
+				<a href="/create-lick" class="nav-item">Create Lick</a>
 			</nav>
 			<div class="main">
 				{ children... }

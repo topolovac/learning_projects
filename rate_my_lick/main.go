@@ -23,11 +23,11 @@ func main() {
 		sampleService: &services.SampleService{},
 	}
 
-	app.sampleService.CreateSample("sample 1", "description example 1", "tintuntun_20241027213536")
-	app.sampleService.CreateSample("sample 2", "description example 2", "tintuntun_20241027213536")
-	app.sampleService.CreateSample("sample 3", "description example 3", "tintuntun_20241027213536")
-	app.sampleService.CreateSample("sample 4", "description example 4", "tintuntun_20241027213536")
-	app.sampleService.CreateSample("sample 5", "description example 5", "tintuntun_20241027213536")
+	app.sampleService.CreateSample("Cool Song", "Description of very cool song.", "tintuntun_20241027213536")
+	app.sampleService.CreateSample("Also Cool Song", "Artist X", "tintuntun_20241027213536")
+	app.sampleService.CreateSample("Nothing Else Matters", "Metallica. Acustic version", "tintuntun_20241027213536")
+	app.sampleService.CreateSample("Sip", "Tananana", "tintuntun_20241027213536")
+	app.sampleService.CreateSample("Society Eddie Vedder", "", "tintuntun_20241027213536")
 
 	e := echo.New()
 	e.Static("/static", "static")
