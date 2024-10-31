@@ -1,0 +1,104 @@
+body {
+  padding: 0;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+.main {
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container {
+  margin-top: 25px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  background-color: #333;
+  padding: 10px;
+}
+
+.nav-item {
+  color: #f4f4f4;
+  text-decoration: none;
+  padding: 10px 20px;
+  margin: 0 10px;
+  transition: background 0.3s;
+}
+
+.nav-item:hover {
+  background-color: #555;
+  border-radius: 5px;
+}
+
+.lick-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin: 15px 0px;
+  border-bottom: 1px solid #555;
+  padding: 10px;
+}
+
+.gold {
+  border: 1px solid #d4af37;
+  border-radius: 25px;
+}
+
+.silver {
+  border: 1px solid #c0c0c0;
+  border-radius: 25px;
+}
+
+.bronce {
+  border: 1px solid #bf8970;
+  border-radius: 25px;
+}
+
+.rating-container > div > button {
+  cursor: pointer;
+  border: none;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  font-size: 25px;
+}
+
+.rating-container > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.rating-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: rgb(88, 88, 88);
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+
+  position: absolute;
+  z-index: 1;
+}
+
+.rating-container > div:hover .tooltiptext {
+  visibility: visible;
+  transition-delay: 0.65s;
+}

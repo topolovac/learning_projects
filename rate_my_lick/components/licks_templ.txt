@@ -4,4 +4,4 @@
 . 
 </h4><audio controls><source src=\"
 \"> Your browser does not support the audio element.</audio> <small>
-</small></div>
+</small><div class=\"rating-container\"><div><button>⭐</button> <span class=\"tooltiptext\">Maestro</span> <small>528</small></div><div><button>🔥</button> <span class=\"tooltiptext\">Excellent</span> <small>528</small></div><div><button>🎸</button> <span class=\"tooltiptext\">Very good!</span> <small>528</small></div><div><button>😀</button> <span class=\"tooltiptext\">Good</span> <small>528</small></div><div><button>😕 </button> <span class=\"tooltiptext\">Needs Practice</span> <small>528</small></div></div></div>
