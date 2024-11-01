@@ -5,9 +5,11 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"strconv"
 	"time"
 
 	"github.com/a-h/templ"
+	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
 
 	"github.com/topolovac/learning_projects/rate_my_lick/components"
@@ -35,6 +37,9 @@ func main() {
 	e.GET("/", app.HomeHandler)
 	e.GET("/create-lick", app.CreateLickHandler)
 	e.POST("/publish-sample", app.PublishSampleHandler)
+
+	// lick actions
+	e.POST("/lick/:id/rate/:rate", app.RateLickHandler)
 
 	err := e.Start(":3000")
 	e.Logger.Fatal(err)
@@ -91,4 +96,20 @@ func (app *application) PublishSampleHandler(c echo.Context) error {
 	app.sampleService.CreateSample(name, description, filename)
 
 	return Render(c, http.StatusOK, components.PublishSample())
+}
+
+func (app *application) RateLickHandler(c echo.Context) error {
+	lickId := c.Param("id")
+	rate := c.Param("rate")
+
+	r, err := strconv.Atoi(rate)
+	if err != nil {
+		return err
+	}
+	sample, err := app.sampleService.RateSample(uuid.MustParse(lickId), r)
+	if err != nil {
+		return err
+	}
+
+	return Render(c, http.StatusOK, components.RatingLabel(sample.Ratings[r]))
 }

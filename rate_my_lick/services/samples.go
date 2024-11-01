@@ -1,6 +1,7 @@
 package services
 
 import (
+	"errors"
 	"time"
 
 	"github.com/google/uuid"
@@ -35,4 +36,22 @@ func (s *SampleService) CreateSample(name, description, filename string) error {
 
 func (s *SampleService) GetSamples() []Sample {
 	return s.samples
+}
+
+func (s *SampleService) GetSampleById(id uuid.UUID) (*Sample, error) {
+	for _, sample := range s.samples {
+		if sample.Id == id {
+			return &sample, nil
+		}
+	}
+	return &Sample{}, errors.New("sample not found")
+}
+
+func (s *SampleService) RateSample(id uuid.UUID, rate int) (*Sample, error) {
+	sample, err := s.GetSampleById(id)
+	if err != nil {
+		return nil, err
+	}
+	sample.Ratings[rate] = sample.Ratings[rate] + 1
+	return sample, nil
 }

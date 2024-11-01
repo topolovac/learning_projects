@@ -4,19 +4,25 @@
 . 
 </h4><audio controls><source src=\"
 \"> Your browser does not support the audio element.</audio> <small>
-</small><div class=\"rating-container\"><div><button>⭐</button> <span class=\"tooltiptext\">Maestro</span> 
-<small>
-</small>
-</div><div><button>🔥</button> <span class=\"tooltiptext\">Excellent</span> 
-<small>
-</small>
-</div><div><button>🎸</button> <span class=\"tooltiptext\">Very good!</span> 
-<small>
-</small>
-</div><div><button>😀</button> <span class=\"tooltiptext\">Good</span> 
-<small>
-</small>
-</div><div><button>😕 </button> <span class=\"tooltiptext\">Needs Practice</span> 
-<small>
-</small>
+</small><div class=\"rating-container\"><div>
+⭐
+<span class=\"tooltiptext\">Maestro</span>
+</div><div>
+🔥
+<span class=\"tooltiptext\">Excellent</span>
+</div><div>
+🎸
+<span class=\"tooltiptext\">Very good!</span>
+</div><div>
+😀
+<span class=\"tooltiptext\">Good</span>
+</div><div>
+😕 
+<span class=\"tooltiptext\">Needs Practice</span>
 </div></div></div>
+<small>
+</small>
+<small></small>
+<button hx-post=\"
+\" hx-target=\"next small\" hx-swap=\"outerHTML\">
+</button>

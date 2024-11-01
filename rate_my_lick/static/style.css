@@ -86,6 +86,7 @@ body {
 }
 
 .tooltiptext {
+  pointer-events: none;
   visibility: hidden;
   width: 120px;
   background-color: rgb(88, 88, 88);

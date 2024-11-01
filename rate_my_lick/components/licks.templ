@@ -32,51 +32,59 @@ templ Licks(samples []services.Sample) {
 			<small>{ sample.Description }</small>
 			<div class="rating-container">
 				<div>
-					<button>
+					@RatingButton(5, sample.Id.String()) {
 						⭐
-					</button>
+					}
 					<span class="tooltiptext">Maestro</span>
-					if sample.Ratings[1] > 0 {
-						<small>{ strconv.Itoa(sample.Ratings[1]) }</small>
-					}
+					@RatingLabel(sample.Ratings[5])
 				</div>
 				<div>
-					<button>
+					@RatingButton(4, sample.Id.String()) {
 						🔥
-					</button>
+					}
 					<span class="tooltiptext">Excellent</span>
-					if sample.Ratings[2] > 0 {
-						<small>{ strconv.Itoa(sample.Ratings[2]) }</small>
-					}
+					@RatingLabel(sample.Ratings[4])
 				</div>
 				<div>
-					<button>
+					@RatingButton(3, sample.Id.String()) {
 						🎸
-					</button>
+					}
 					<span class="tooltiptext">Very good!</span>
-					if sample.Ratings[3] > 0 {
-						<small>{ strconv.Itoa(sample.Ratings[3]) }</small>
-					}
+					@RatingLabel(sample.Ratings[3])
 				</div>
 				<div>
-					<button>
+					@RatingButton(2, sample.Id.String()) {
 						😀
-					</button>
-					<span class="tooltiptext">Good</span>
-					if sample.Ratings[4] > 0 {
-						<small>{ strconv.Itoa(sample.Ratings[4]) }</small>
 					}
+					<span class="tooltiptext">Good</span>
+					@RatingLabel(sample.Ratings[2])
 				</div>
 				<div>
-					<button>
+					@RatingButton(1, sample.Id.String()) {
 						😕 
-					</button>
-					<span class="tooltiptext">Needs Practice</span>
-					if sample.Ratings[5] > 0 {
-						<small>{ strconv.Itoa(sample.Ratings[5]) }</small>
 					}
+					<span class="tooltiptext">Needs Practice</span>
+					@RatingLabel(sample.Ratings[1])
 				</div>
 			</div>
 		</div>
 	}
+}
+
+templ RatingLabel(rating int) {
+	if rating > 0 {
+		<small>{ strconv.Itoa(rating) }</small>
+	} else {
+		<small></small>
+	}
+}
+
+templ RatingButton(rating int, id string) {
+	<button
+		hx-post={ fmt.Sprintf("/lick/%s/rate/%d", id, rating) }
+		hx-target="next small"
+		hx-swap="outerHTML"
+	>
+		{ children... }
+	</button>
 }
