@@ -36,35 +36,45 @@ templ Licks(samples []services.Sample) {
 						⭐
 					</button>
 					<span class="tooltiptext">Maestro</span>
-					<small>528</small>
+					if sample.Ratings[1] > 0 {
+						<small>{ strconv.Itoa(sample.Ratings[1]) }</small>
+					}
 				</div>
 				<div>
 					<button>
 						🔥
 					</button>
 					<span class="tooltiptext">Excellent</span>
-					<small>528</small>
+					if sample.Ratings[2] > 0 {
+						<small>{ strconv.Itoa(sample.Ratings[2]) }</small>
+					}
 				</div>
 				<div>
 					<button>
 						🎸
 					</button>
 					<span class="tooltiptext">Very good!</span>
-					<small>528</small>
+					if sample.Ratings[3] > 0 {
+						<small>{ strconv.Itoa(sample.Ratings[3]) }</small>
+					}
 				</div>
 				<div>
 					<button>
 						😀
 					</button>
 					<span class="tooltiptext">Good</span>
-					<small>528</small>
+					if sample.Ratings[4] > 0 {
+						<small>{ strconv.Itoa(sample.Ratings[4]) }</small>
+					}
 				</div>
 				<div>
 					<button>
 						😕 
 					</button>
 					<span class="tooltiptext">Needs Practice</span>
-					<small>528</small>
+					if sample.Ratings[5] > 0 {
+						<small>{ strconv.Itoa(sample.Ratings[5]) }</small>
+					}
 				</div>
 			</div>
 		</div>
