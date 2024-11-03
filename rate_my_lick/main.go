@@ -83,7 +83,7 @@ func (app *application) PublishSampleHandler(c echo.Context) error {
 
 	timestamp := time.Now()
 	filename := name + "_" + timestamp.Format("20060102150405")
-	dst, err := os.Create("./static/" + filename)
+	dst, err := os.Create("./static/licks/" + filename)
 	if err != nil {
 		return err
 	}
