@@ -154,7 +154,7 @@ func Licks(samples []services.Sample) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = RatingLabel(sample.Ratings[5]).Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = RatingLabel(len(sample.Ratings[5])).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -188,7 +188,7 @@ func Licks(samples []services.Sample) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = RatingLabel(sample.Ratings[4]).Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = RatingLabel(len(sample.Ratings[4])).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -222,7 +222,7 @@ func Licks(samples []services.Sample) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = RatingLabel(sample.Ratings[3]).Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = RatingLabel(len(sample.Ratings[3])).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -256,7 +256,7 @@ func Licks(samples []services.Sample) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = RatingLabel(sample.Ratings[2]).Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = RatingLabel(len(sample.Ratings[2])).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -290,7 +290,7 @@ func Licks(samples []services.Sample) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = RatingLabel(sample.Ratings[1]).Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = RatingLabel(len(sample.Ratings[1])).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

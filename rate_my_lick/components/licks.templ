@@ -36,35 +36,35 @@ templ Licks(samples []services.Sample) {
 						⭐
 					}
 					<span class="tooltiptext">Maestro</span>
-					@RatingLabel(sample.Ratings[5])
+					@RatingLabel(len(sample.Ratings[5]))
 				</div>
 				<div>
 					@RatingButton(4, sample.Id.String()) {
 						🔥
 					}
 					<span class="tooltiptext">Excellent</span>
-					@RatingLabel(sample.Ratings[4])
+					@RatingLabel(len(sample.Ratings[4]))
 				</div>
 				<div>
 					@RatingButton(3, sample.Id.String()) {
 						🎸
 					}
 					<span class="tooltiptext">Very good!</span>
-					@RatingLabel(sample.Ratings[3])
+					@RatingLabel(len(sample.Ratings[3]))
 				</div>
 				<div>
 					@RatingButton(2, sample.Id.String()) {
 						😀
 					}
 					<span class="tooltiptext">Good</span>
-					@RatingLabel(sample.Ratings[2])
+					@RatingLabel(len(sample.Ratings[2]))
 				</div>
 				<div>
 					@RatingButton(1, sample.Id.String()) {
 						😕 
 					}
 					<span class="tooltiptext">Needs Practice</span>
-					@RatingLabel(sample.Ratings[1])
+					@RatingLabel(len(sample.Ratings[1]))
 				</div>
 			</div>
 		</div>

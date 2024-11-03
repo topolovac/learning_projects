@@ -13,6 +13,7 @@ import (
 	"github.com/labstack/echo/v4"
 
 	"github.com/topolovac/learning_projects/rate_my_lick/components"
+	"github.com/topolovac/learning_projects/rate_my_lick/middleware"
 	"github.com/topolovac/learning_projects/rate_my_lick/services"
 )
 
@@ -32,6 +33,7 @@ func main() {
 	app.sampleService.CreateSample("Society Eddie Vedder", "", "tintuntun_20241027213536")
 
 	e := echo.New()
+	e.Use(middleware.CreateSession)
 	e.Static("/static", "static")
 
 	e.GET("/", app.HomeHandler)
@@ -99,6 +101,11 @@ func (app *application) PublishSampleHandler(c echo.Context) error {
 }
 
 func (app *application) RateLickHandler(c echo.Context) error {
+	guest_user_id, err := c.Cookie(middleware.GuestUserId)
+	if err != nil {
+		return err
+	}
+
 	lickId := c.Param("id")
 	rate := c.Param("rate")
 
@@ -106,10 +113,10 @@ func (app *application) RateLickHandler(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	sample, err := app.sampleService.RateSample(uuid.MustParse(lickId), r)
+	sample, err := app.sampleService.RateSample(uuid.MustParse(lickId), r, uuid.MustParse(guest_user_id.Value))
 	if err != nil {
 		return err
 	}
 
-	return Render(c, http.StatusOK, components.RatingLabel(sample.Ratings[r]))
+	return Render(c, http.StatusOK, components.RatingLabel(len(sample.Ratings[r])))
 }
