@@ -30,45 +30,49 @@ templ Licks(samples []services.Sample) {
 				Your browser does not support the audio element.
 			</audio>
 			<small>{ sample.Description }</small>
-			<div class="rating-container">
-				<div>
-					@RatingButton(5, sample.Id.String()) {
-						⭐
-					}
-					<span class="tooltiptext">Maestro</span>
-					@RatingLabel(len(sample.Ratings[5]))
-				</div>
-				<div>
-					@RatingButton(4, sample.Id.String()) {
-						🔥
-					}
-					<span class="tooltiptext">Excellent</span>
-					@RatingLabel(len(sample.Ratings[4]))
-				</div>
-				<div>
-					@RatingButton(3, sample.Id.String()) {
-						🎸
-					}
-					<span class="tooltiptext">Very good!</span>
-					@RatingLabel(len(sample.Ratings[3]))
-				</div>
-				<div>
-					@RatingButton(2, sample.Id.String()) {
-						😀
-					}
-					<span class="tooltiptext">Good</span>
-					@RatingLabel(len(sample.Ratings[2]))
-				</div>
-				<div>
-					@RatingButton(1, sample.Id.String()) {
-						😕 
-					}
-					<span class="tooltiptext">Needs Practice</span>
-					@RatingLabel(len(sample.Ratings[1]))
-				</div>
-			</div>
+			@RatingSection(sample, 0)
 		</div>
 	}
+}
+
+templ RatingSection(sample services.Sample, disabledButton int) {
+	<div class="rating-container">
+		<div>
+			@RatingButton(5, sample.Id.String(), disabledButton == 5) {
+				⭐
+			}
+			<span class="tooltiptext">Maestro</span>
+			@RatingLabel(len(sample.Ratings[5]))
+		</div>
+		<div>
+			@RatingButton(4, sample.Id.String(), disabledButton == 4) {
+				🔥
+			}
+			<span class="tooltiptext">Excellent</span>
+			@RatingLabel(len(sample.Ratings[4]))
+		</div>
+		<div>
+			@RatingButton(3, sample.Id.String(), disabledButton == 3) {
+				🎸
+			}
+			<span class="tooltiptext">Very good!</span>
+			@RatingLabel(len(sample.Ratings[3]))
+		</div>
+		<div>
+			@RatingButton(2, sample.Id.String(), disabledButton == 2) {
+				😀
+			}
+			<span class="tooltiptext">Good</span>
+			@RatingLabel(len(sample.Ratings[2]))
+		</div>
+		<div>
+			@RatingButton(1, sample.Id.String(), disabledButton == 1) {
+				😕 
+			}
+			<span class="tooltiptext">Needs Practice</span>
+			@RatingLabel(len(sample.Ratings[1]))
+		</div>
+	</div>
 }
 
 templ RatingLabel(rating int) {
@@ -79,11 +83,12 @@ templ RatingLabel(rating int) {
 	}
 }
 
-templ RatingButton(rating int, id string) {
+templ RatingButton(rating int, id string, disabledButton bool) {
 	<button
 		hx-post={ fmt.Sprintf("/lick/%s/rate/%d", id, rating) }
-		hx-target="next small"
+		hx-target="closest .rating-container"
 		hx-swap="outerHTML"
+		disabled?={ disabledButton }
 	>
 		{ children... }
 	</button>

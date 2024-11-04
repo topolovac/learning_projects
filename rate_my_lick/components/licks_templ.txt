@@ -4,7 +4,9 @@
 . 
 </h4><audio controls><source src=\"
 \"> Your browser does not support the audio element.</audio> <small>
-</small><div class=\"rating-container\"><div>
+</small>
+</div>
+<div class=\"rating-container\"><div>
 ⭐
 <span class=\"tooltiptext\">Maestro</span>
 </div><div>
@@ -19,10 +21,12 @@
 </div><div>
 😕 
 <span class=\"tooltiptext\">Needs Practice</span>
-</div></div></div>
+</div></div>
 <small>
 </small>
 <small></small>
 <button hx-post=\"
-\" hx-target=\"next small\" hx-swap=\"outerHTML\">
+\" hx-target=\"closest .rating-container\" hx-swap=\"outerHTML\"
+ disabled
+>
 </button>

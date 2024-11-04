@@ -47,6 +47,13 @@ func (s *SampleService) RateSample(id uuid.UUID, rate int, guest_user_id uuid.UU
 	if err != nil {
 		return nil, err
 	}
+
+	for _, u := range sample.Ratings[rate] {
+		if u == guest_user_id {
+			return nil, errors.New("user vote already registered")
+		}
+	}
+
 	sample.Ratings[rate] = append(sample.Ratings[rate], guest_user_id)
 	return sample, nil
 }

@@ -103,5 +103,5 @@ func (app *application) RateLickHandler(c echo.Context) error {
 		return err
 	}
 
-	return Render(c, http.StatusOK, components.RatingLabel(len(sample.Ratings[r])))
+	return Render(c, http.StatusOK, components.RatingSection(*sample, r))
 }
