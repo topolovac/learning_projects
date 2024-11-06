@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"io"
 	"net/http"
 	"os"
@@ -54,8 +53,6 @@ func (app *application) CreateLickHandler(c echo.Context) error {
 func (app *application) PublishSampleHandler(c echo.Context) error {
 	name := c.FormValue("songname")
 	description := c.FormValue("songdescription")
-	fmt.Println("name=" + name)
-	fmt.Println("description=" + description)
 
 	file, err := c.FormFile("audiosample")
 	if err != nil {

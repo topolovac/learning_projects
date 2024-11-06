@@ -48,12 +48,20 @@ func (s *SampleService) RateSample(id uuid.UUID, rate int, guest_user_id uuid.UU
 		return nil, err
 	}
 
-	for _, u := range sample.Ratings[rate] {
-		if u == guest_user_id {
-			return nil, errors.New("user vote already registered")
-		}
-	}
+	sample.Ratings = removeExistingRatings(sample.Ratings, guest_user_id)
 
 	sample.Ratings[rate] = append(sample.Ratings[rate], guest_user_id)
 	return sample, nil
+}
+
+func removeExistingRatings(ratings Ratings, id uuid.UUID) Ratings {
+	for i := 1; i <= 5; i++ {
+		for ii, u := range ratings[i] {
+			if u == id {
+				ratings[i] = append(ratings[i][:ii], ratings[i][ii+1:]...)
+				return ratings
+			}
+		}
+	}
+	return ratings
 }
