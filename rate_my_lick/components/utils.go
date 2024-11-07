@@ -1,8 +1,6 @@
 package components
 
 import (
-	"fmt"
-
 	"github.com/google/uuid"
 )
 
