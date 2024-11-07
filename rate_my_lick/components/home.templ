@@ -2,12 +2,13 @@
 package components
 
 import (
+	"github.com/google/uuid"
 	"github.com/topolovac/learning_projects/rate_my_lick/components/partials"
 	"github.com/topolovac/learning_projects/rate_my_lick/services"
 )
 
-templ Home(samples []services.Sample) {
+templ Home(samples []services.Sample, userId uuid.UUID) {
 	@partials.Layout() {
-		@Licks(samples)
+		@Licks(samples, userId)
 	}
 }

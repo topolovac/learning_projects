@@ -3,6 +3,7 @@ package components
 
 import (
 	"fmt"
+	"github.com/google/uuid"
 	"github.com/topolovac/learning_projects/rate_my_lick/services"
 	"strconv"
 )
@@ -20,7 +21,7 @@ func getColor(index int) string {
 	}
 }
 
-templ Licks(samples []services.Sample) {
+templ Licks(samples []services.Sample, userId uuid.UUID) {
 	<h1>Licks Of The Day</h1>
 	for index, sample := range samples {
 		<div class={ "lick-container", getColor(index) }>
@@ -30,43 +31,43 @@ templ Licks(samples []services.Sample) {
 				Your browser does not support the audio element.
 			</audio>
 			<small>{ sample.Description }</small>
-			@RatingSection(sample, 0)
+			@RatingSection(sample, userId)
 		</div>
 	}
 }
 
-templ RatingSection(sample services.Sample, disabledButton int) {
+templ RatingSection(sample services.Sample, userId uuid.UUID) {
 	<div class="rating-container">
 		<div>
-			@RatingButton(5, sample.Id.String(), disabledButton == 5) {
+			@RatingButton(5, sample.Id.String(), userAlreadyVoted(sample.Ratings[5], userId)) {
 				⭐
 			}
 			<span class="tooltiptext">Maestro</span>
 			@RatingLabel(len(sample.Ratings[5]))
 		</div>
 		<div>
-			@RatingButton(4, sample.Id.String(), disabledButton == 4) {
+			@RatingButton(4, sample.Id.String(), userAlreadyVoted(sample.Ratings[4], userId)) {
 				🔥
 			}
 			<span class="tooltiptext">Excellent</span>
 			@RatingLabel(len(sample.Ratings[4]))
 		</div>
 		<div>
-			@RatingButton(3, sample.Id.String(), disabledButton == 3) {
+			@RatingButton(3, sample.Id.String(), userAlreadyVoted(sample.Ratings[3], userId)) {
 				🎸
 			}
 			<span class="tooltiptext">Very good!</span>
 			@RatingLabel(len(sample.Ratings[3]))
 		</div>
 		<div>
-			@RatingButton(2, sample.Id.String(), disabledButton == 2) {
+			@RatingButton(2, sample.Id.String(), userAlreadyVoted(sample.Ratings[2], userId)) {
 				😀
 			}
 			<span class="tooltiptext">Good</span>
 			@RatingLabel(len(sample.Ratings[2]))
 		</div>
 		<div>
-			@RatingButton(1, sample.Id.String(), disabledButton == 1) {
+			@RatingButton(1, sample.Id.String(), userAlreadyVoted(sample.Ratings[1], userId)) {
 				😕 
 			}
 			<span class="tooltiptext">Needs Practice</span>

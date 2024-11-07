@@ -43,7 +43,11 @@ func Render(ctx echo.Context, statusCode int, t templ.Component) error {
 }
 
 func (app *application) HomeHandler(c echo.Context) error {
-	return Render(c, http.StatusOK, components.Home(app.sampleService.GetSamples()))
+	userId, err := getUserIdFromCookie(c)
+	if err != nil {
+		return err
+	}
+	return Render(c, http.StatusOK, components.Home(app.sampleService.GetSamples(), userId))
 }
 
 func (app *application) CreateLickHandler(c echo.Context) error {
@@ -83,7 +87,7 @@ func (app *application) PublishSampleHandler(c echo.Context) error {
 }
 
 func (app *application) RateLickHandler(c echo.Context) error {
-	guest_user_id, err := c.Cookie(GuestUserId)
+	user_id, err := getUserIdFromCookie(c)
 	if err != nil {
 		return err
 	}
@@ -95,10 +99,19 @@ func (app *application) RateLickHandler(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	sample, err := app.sampleService.RateSample(uuid.MustParse(lickId), r, uuid.MustParse(guest_user_id.Value))
+
+	sample, err := app.sampleService.RateSample(uuid.MustParse(lickId), r, user_id)
 	if err != nil {
 		return err
 	}
 
-	return Render(c, http.StatusOK, components.RatingSection(*sample, r))
+	return Render(c, http.StatusOK, components.RatingSection(*sample, user_id))
+}
+
+func getUserIdFromCookie(c echo.Context) (uuid.UUID, error) {
+	cookie, err := c.Cookie(GuestUserId)
+	if err != nil {
+		return uuid.UUID{}, err
+	}
+	return uuid.Parse(cookie.Value)
 }
