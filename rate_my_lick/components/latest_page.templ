@@ -7,9 +7,9 @@ import (
 	"github.com/topolovac/learning_projects/rate_my_lick/services"
 )
 
-templ Home(samples []services.Sample, userId uuid.UUID) {
+templ LatestPage(samples []services.Sample, userId uuid.UUID) {
 	@partials.Layout() {
-		<h1>Licks Of The Day</h1>
-		@Licks(samples, userId, true)
+		<h1>Latest Licks</h1>
+		@Licks(samples, userId, false)
 	}
 }

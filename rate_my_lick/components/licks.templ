@@ -6,9 +6,13 @@ import (
 	"github.com/google/uuid"
 	"github.com/topolovac/learning_projects/rate_my_lick/services"
 	"strconv"
+	"time"
 )
 
-func getColor(index int) string {
+func getColor(index int, isTopLicksList bool) string {
+	if !isTopLicksList {
+		return ""
+	}
 	switch index {
 	case 0:
 		return "gold"
@@ -21,11 +25,11 @@ func getColor(index int) string {
 	}
 }
 
-templ Licks(samples []services.Sample, userId uuid.UUID) {
-	<h1>Licks Of The Day</h1>
+templ Licks(samples []services.Sample, userId uuid.UUID, isTopLicksList bool) {
 	for index, sample := range samples {
-		<div class={ "lick-container", getColor(index) }>
+		<div class={ "lick-container", getColor(index, isTopLicksList) }>
 			<h4>{ strconv.Itoa(index + 1) }. { sample.Name }</h4>
+			<small>Published: { sample.Created.Format(time.RFC1123) }</small>
 			<audio controls>
 				<source src={ fmt.Sprintf("/static/licks/%s", sample.Filename) }/>
 				Your browser does not support the audio element.

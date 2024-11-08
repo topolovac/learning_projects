@@ -2,12 +2,22 @@ package services
 
 import (
 	"errors"
+	"fmt"
+	"sort"
 	"time"
 
 	"github.com/google/uuid"
 )
 
 type Ratings map[int][]uuid.UUID
+
+func (r Ratings) GetTotal() int {
+	total := 0
+	for i, rr := range r {
+		total += len(rr) * i
+	}
+	return total
+}
 
 type Sample struct {
 	Id          uuid.UUID
@@ -29,7 +39,21 @@ func (s *SampleService) CreateSample(name, description, filename string) error {
 	return nil
 }
 
-func (s *SampleService) GetSamples() []Sample {
+func (s *SampleService) GetSamplesByRating() []Sample {
+	sort.Slice(s.samples, func(i, j int) bool {
+		totalA := s.samples[i].Ratings.GetTotal()
+		totalB := s.samples[j].Ratings.GetTotal()
+		fmt.Println(totalA)
+		fmt.Println(totalB)
+		return totalB < totalA
+	})
+	return s.samples
+}
+
+func (s *SampleService) GetSamplesOrderByLatest() []Sample {
+	sort.Slice(s.samples, func(i, j int) bool {
+		return s.samples[i].Created.After(s.samples[j].Created)
+	})
 	return s.samples
 }
 

@@ -47,7 +47,15 @@ func (app *application) HomeHandler(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	return Render(c, http.StatusOK, components.Home(app.sampleService.GetSamples(), userId))
+	return Render(c, http.StatusOK, components.Home(app.sampleService.GetSamplesByRating(), userId))
+}
+
+func (app *application) LatestPageHandler(c echo.Context) error {
+	userId, err := getUserIdFromCookie(c)
+	if err != nil {
+		return err
+	}
+	return Render(c, http.StatusOK, components.LatestPage(app.sampleService.GetSamplesOrderByLatest(), userId))
 }
 
 func (app *application) CreateLickHandler(c echo.Context) error {
