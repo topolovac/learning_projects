@@ -4,12 +4,11 @@ body {
   font-family: Arial, sans-serif;
   text-align: center;
   background-color: #333;
-  color: white;
+  color: rgba(255, 255, 255, 0.75);
 }
 
 .main {
   width: 100%;
-  text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -46,10 +45,26 @@ body {
 .lick-container {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  align-items: center;
+  gap: 30px;
   margin: 15px 0px;
   border-bottom: 1px solid #555;
   padding: 10px;
+}
+
+.lick-container-row {
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+  align-items: center;
+}
+
+.lick-container-info {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-items: start;
+  gap: 5px;
 }
 
 .gold {
@@ -85,6 +100,8 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  max-width: fit-content;
+  gap: 15px;
 }
 
 .tooltiptext {

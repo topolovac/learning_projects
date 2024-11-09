@@ -28,13 +28,17 @@ func getColor(index int, isTopLicksList bool) string {
 templ Licks(samples []services.Sample, userId uuid.UUID, isTopLicksList bool) {
 	for index, sample := range samples {
 		<div class={ "lick-container", getColor(index, isTopLicksList) }>
-			<h4>{ strconv.Itoa(index + 1) }. { sample.Name }</h4>
-			<small>Published: { sample.Created.Format(time.RFC1123) }</small>
-			<audio controls>
-				<source src={ fmt.Sprintf("/static/licks/%s", sample.Filename) }/>
-				Your browser does not support the audio element.
-			</audio>
-			<small>{ sample.Description }</small>
+			<div class="lick-container-row">
+				<div class="lick-container-info">
+					<h3>{ strconv.Itoa(index + 1) }. { sample.Name }</h3>
+					<small>{ sample.Description }</small>
+					<small>Published: { sample.Created.Format(time.RFC1123) }</small>
+				</div>
+				<audio controls>
+					<source src={ fmt.Sprintf("/static/licks/%s", sample.Filename) }/>
+					Your browser does not support the audio element.
+				</audio>
+			</div>
 			@RatingSection(sample, userId)
 		</div>
 	}

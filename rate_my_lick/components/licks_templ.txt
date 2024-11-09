@@ -1,10 +1,10 @@
 <div class=\"
-\"><h4>
+\"><div class=\"lick-container-row\"><div class=\"lick-container-info\"><h3>
 . 
-</h4><small>Published: 
-</small> <audio controls><source src=\"
-\"> Your browser does not support the audio element.</audio> <small>
-</small>
+</h3><small>
+</small> <small>Published: 
+</small></div><audio controls><source src=\"
+\"> Your browser does not support the audio element.</audio></div>
 </div>
 <div class=\"rating-container\"><div>
 ⭐
