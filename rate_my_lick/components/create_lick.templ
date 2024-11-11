@@ -1,4 +1,3 @@
-
 package components
 
 import "github.com/topolovac/learning_projects/rate_my_lick/components/partials"
@@ -6,63 +5,143 @@ import "github.com/topolovac/learning_projects/rate_my_lick/components/partials"
 templ CreateLick() {
 	@partials.Layout() {
 		<div class="main">
-			<h1>Create Lick</h1>
+			<h1>Create Your Lick</h1>
+			<p class="description">Fill in the details and upload or record a sample to share your unique sound with the world.</p>
 			<form
-				class="container"
+				class="form-container"
 				hx-encoding="multipart/form-data"
 				hx-post="/publish-sample"
 			>
-				<input name="songname" type="text" placeholder="song name" required/>
-				<textarea name="songdescription" type="text" placeholder="short description" rows="3"></textarea>
-				<input id="audiosample" name="audiosample" type="file" required/>
-				<button type="submit">Publish Lick</button>
+				<div class="form-group">
+					<label for="songname">Song Name</label>
+					<input id="songname" name="songname" type="text" placeholder="Enter song name" required/>
+				</div>
+				<div class="form-group">
+					<label for="songdescription">Song Description</label>
+					<textarea id="songdescription" name="songdescription" placeholder="A short description" rows="3"></textarea>
+				</div>
+				<div class="audio-container">
+					<h2>Record Audio Sample or Upload File</h2>
+					<div class="recording-controls">
+						<button id="startButton" class="record-button">Start Recording</button>
+						<button id="stopButton" class="record-button" disabled>Stop Recording</button>
+					</div>
+					<audio id="audioPlayback" controls class="audio-player"></audio>
+				</div>
+				<h3 style="text-align: center; width: 100%">or</h3>
+				<div class="form-group">
+					<label for="audiosample">Upload Audio Sample</label>
+					<input id="audiosample" name="audiosample" type="file" required/>
+				</div>
+				<button type="submit" class="submit-button">Publish Lick</button>
 			</form>
-			<div class="container">
-				Record Audio Sample
-				<button id="startButton">Start Recording</button>
-				<button id="stopButton" disabled>Stop Recording</button>
-				<h3>Recorded Audio:</h3>
-				<audio id="audioPlayback" controls></audio>
-			</div>
 		</div>
 	}
+	<style>
+		.description {
+			text-align: center;
+			font-size: 1rem;
+			color: #666;
+			margin-bottom: 1.5rem;
+		}
+		.form-container, .audio-container {
+			margin-bottom: 2rem;
+		}
+		.form-group {
+			margin-bottom: 1rem;
+		}
+		label {
+			display: block;
+			margin-bottom: 0.25rem;
+			font-weight: 600;
+			color: #333;
+		}
+		input[type="text"], textarea, input[type="file"] {
+			width: 100%;
+			padding: 0.5rem;
+			font-size: 1rem;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			box-sizing: border-box;
+		}
+		.submit-button {
+			width: 100%;
+			padding: 0.75rem;
+			background-color: #4CAF50;
+			color: white;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			font-size: 1rem;
+			margin-top: 1rem;
+			transition: background-color 0.3s;
+		}
+		.submit-button:hover {
+			background-color: #45a049;
+		}
+		.recording-controls {
+			display: flex;
+			justify-content: center;
+			gap: 1rem;
+		}
+		.record-button {
+			padding: 0.5rem 1rem;
+			font-size: 1rem;
+			cursor: pointer;
+			border: none;
+			border-radius: 4px;
+			color: white;
+			background-color: #656565;
+			transition: background-color 0.3s;
+		}
+		.record-button:disabled {
+			background-color: #ffffff00;
+			cursor: not-allowed;
+		}
+		.record-button:hover:not(:disabled) {
+			background-color: #555;
+		}
+		.audio-player {
+			width: 100%;
+			margin-top: 1rem;
+		}
+	</style>
 	<script>
-    let mediaRecorder;
-    let recordedChunks = [];
+		let mediaRecorder;
+		let recordedChunks = [];
 
-    document.getElementById('startButton').addEventListener('click', async () => {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      mediaRecorder = new MediaRecorder(stream);
+		document.getElementById('startButton').addEventListener('click', async () => {
+			const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+			mediaRecorder = new MediaRecorder(stream);
 
-      document.getElementById('startButton').disabled = true;
-      document.getElementById('stopButton').disabled = false;
+			document.getElementById('startButton').disabled = true;
+			document.getElementById('stopButton').disabled = false;
 
-      mediaRecorder.ondataavailable = (event) => {
-        if (event.data.size > 0) recordedChunks.push(event.data);
-      };
+			mediaRecorder.ondataavailable = (event) => {
+				if (event.data.size > 0) recordedChunks.push(event.data);
+			};
 
-      mediaRecorder.onstop = () => {
-        const audioBlob = new Blob(recordedChunks, { type: 'audio/webm' });
-        const audioUrl = URL.createObjectURL(audioBlob);
-        document.getElementById('audioPlayback').src = audioUrl;
+			mediaRecorder.onstop = () => {
+				const audioBlob = new Blob(recordedChunks, { type: 'audio/webm' });
+				const audioUrl = URL.createObjectURL(audioBlob);
+				document.getElementById('audioPlayback').src = audioUrl;
 
-        document.getElementById('startButton').disabled = false;
-        document.getElementById('stopButton').disabled = true;
-        recordedChunks = [];
+				document.getElementById('startButton').disabled = false;
+				document.getElementById('stopButton').disabled = true;
+				recordedChunks = [];
 
+				const audioFile = new File([audioBlob], "audioSample.webm", { type: "audio/webm" });
+				const dataTransfer = new DataTransfer();
+				dataTransfer.items.add(audioFile);
+				const sampleInput = document.getElementById("audiosample");
+				sampleInput.files = dataTransfer.files;
+			};
 
- 		const audioFile = new File([audioBlob], "audioSample.webm", { type: "audio/webm" });
-  		const dataTransfer = new DataTransfer();
-  		dataTransfer.items.add(audioFile);
-		const sampleInput = document.getElementById("audiosample");
-		sampleInput.files = dataTransfer.files;
-      };
+			mediaRecorder.start();
+		});
 
-      mediaRecorder.start();
-    });
-
-    document.getElementById('stopButton').addEventListener('click', () => {
-      mediaRecorder.stop();
-    });
-  </script>
+		document.getElementById('stopButton').addEventListener('click', () => {
+			mediaRecorder.stop();
+		});
+	</script>
 }
