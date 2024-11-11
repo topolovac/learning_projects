@@ -1,0 +1,2 @@
+- error on first page visit - probably userid issue
+- implement better ui on succesful sample publish
