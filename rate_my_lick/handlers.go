@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"io"
 	"net/http"
 	"os"
@@ -47,7 +48,7 @@ func (app *application) HomeHandler(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	return Render(c, http.StatusOK, components.Home(app.sampleService.GetSamplesByRating(), userId))
+	return Render(c, http.StatusOK, components.HomePage(app.sampleService.GetSamplesByRating(), userId))
 }
 
 func (app *application) LatestPageHandler(c echo.Context) error {
@@ -89,9 +90,13 @@ func (app *application) PublishSampleHandler(c echo.Context) error {
 		return err
 	}
 
-	app.sampleService.CreateSample(name, description, filename)
+	sample, err := app.sampleService.CreateSample(name, description, filename)
+	if err != nil {
+		return err
+	}
 
-	return Render(c, http.StatusOK, components.PublishSample())
+	c.Response().Header().Add("HX-Redirect", fmt.Sprintf("/lick/%s", sample.Id.String()))
+	return nil
 }
 
 func (app *application) RateLickHandler(c echo.Context) error {
@@ -116,6 +121,27 @@ func (app *application) RateLickHandler(c echo.Context) error {
 	return Render(c, http.StatusOK, components.RatingSection(*sample, user_id))
 }
 
+func (app *application) LickHandler(c echo.Context) error {
+	id := c.Param("id")
+	lickId, err := uuid.Parse(id)
+	if err != nil {
+		return nil
+	}
+
+	sample, err := app.sampleService.GetSampleById(lickId)
+	if err != nil {
+		return err
+	}
+
+	userId, err := getUserIdFromCookie(c)
+	if err != nil {
+		return nil
+	}
+
+	return Render(c, http.StatusOK, components.LickPage(*sample, userId))
+}
+
+// UTILS
 func getUserIdFromCookie(c echo.Context) (uuid.UUID, error) {
 	cookie, err := c.Cookie(GuestUserId)
 	if err != nil {

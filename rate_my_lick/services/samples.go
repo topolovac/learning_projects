@@ -2,7 +2,6 @@ package services
 
 import (
 	"errors"
-	"fmt"
 	"sort"
 	"time"
 
@@ -32,19 +31,18 @@ type SampleService struct {
 	samples []Sample
 }
 
-func (s *SampleService) CreateSample(name, description, filename string) error {
+func (s *SampleService) CreateSample(name, description, filename string) (*Sample, error) {
 	ratings := make(map[int][]uuid.UUID)
 
-	s.samples = append(s.samples, Sample{uuid.New(), name, description, filename, ratings, time.Now()})
-	return nil
+	sample := &Sample{uuid.New(), name, description, filename, ratings, time.Now()}
+	s.samples = append(s.samples, *sample)
+	return sample, nil
 }
 
 func (s *SampleService) GetSamplesByRating() []Sample {
 	sort.Slice(s.samples, func(i, j int) bool {
 		totalA := s.samples[i].Ratings.GetTotal()
 		totalB := s.samples[j].Ratings.GetTotal()
-		fmt.Println(totalA)
-		fmt.Println(totalB)
 		return totalB < totalA
 	})
 	return s.samples

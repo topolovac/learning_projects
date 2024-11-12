@@ -31,6 +31,7 @@ func main() {
 	e.GET("/create-lick", app.CreateLickHandler)
 	e.GET("/latest", app.LatestPageHandler)
 	e.POST("/publish-sample", app.PublishSampleHandler)
+	e.GET("/lick/:id", app.LickHandler)
 
 	e.POST("/lick/:id/rate/:rate", app.RateLickHandler)
 

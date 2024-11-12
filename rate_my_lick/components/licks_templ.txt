@@ -1,11 +1,17 @@
 <div class=\"
-\"><div class=\"lick-container-row\"><div class=\"lick-container-info\"><h3>
+\"><div class=\"lick-container-row\"><div class=\"lick-container-info\"><a href=\"
+\"><h3>
 . 
-</h3><small>
+</h3></a> <small>
 </small> <small>Published: 
 </small></div><audio controls><source src=\"
 \"> Your browser does not support the audio element.</audio></div>
 </div>
+<div class=\"lick-container-row\"><div class=\"lick-container-info\"><h3>
+</h3><small>
+</small> <small>Published: 
+</small></div><audio controls><source src=\"
+\"> Your browser does not support the audio element.</audio></div>
 <div class=\"rating-container\"><div>
 ⭐
 <span class=\"tooltiptext\">Maestro</span>
