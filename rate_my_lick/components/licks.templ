@@ -68,35 +68,35 @@ templ Lick(sample services.Sample, userId uuid.UUID) {
 templ RatingSection(sample services.Sample, userId uuid.UUID) {
 	<div class="rating-container">
 		<div>
-			@RatingButton(5, sample.Id.String(), userAlreadyVoted(sample.Ratings[5], userId)) {
+			@RatingButton(5, sample.Id.String(), userAlreadyVoted(sample.Ratings[5], userId) || sample.UserId == userId) {
 				⭐
 			}
 			<span class="tooltiptext">Maestro</span>
 			@RatingLabel(len(sample.Ratings[5]))
 		</div>
 		<div>
-			@RatingButton(4, sample.Id.String(), userAlreadyVoted(sample.Ratings[4], userId)) {
+			@RatingButton(4, sample.Id.String(), userAlreadyVoted(sample.Ratings[4], userId) || sample.UserId == userId) {
 				🔥
 			}
 			<span class="tooltiptext">Excellent</span>
 			@RatingLabel(len(sample.Ratings[4]))
 		</div>
 		<div>
-			@RatingButton(3, sample.Id.String(), userAlreadyVoted(sample.Ratings[3], userId)) {
+			@RatingButton(3, sample.Id.String(), userAlreadyVoted(sample.Ratings[3], userId) || sample.UserId == userId) {
 				🎸
 			}
 			<span class="tooltiptext">Very good!</span>
 			@RatingLabel(len(sample.Ratings[3]))
 		</div>
 		<div>
-			@RatingButton(2, sample.Id.String(), userAlreadyVoted(sample.Ratings[2], userId)) {
+			@RatingButton(2, sample.Id.String(), userAlreadyVoted(sample.Ratings[2], userId) || sample.UserId == userId) {
 				😀
 			}
 			<span class="tooltiptext">Good</span>
 			@RatingLabel(len(sample.Ratings[2]))
 		</div>
 		<div>
-			@RatingButton(1, sample.Id.String(), userAlreadyVoted(sample.Ratings[1], userId)) {
+			@RatingButton(1, sample.Id.String(), userAlreadyVoted(sample.Ratings[1], userId) || sample.UserId == userId) {
 				😕 
 			}
 			<span class="tooltiptext">Needs Practice</span>

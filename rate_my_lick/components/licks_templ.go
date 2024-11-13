@@ -296,7 +296,7 @@ func RatingSection(sample services.Sample, userId uuid.UUID) templ.Component {
 			}
 			return templ_7745c5c3_Err
 		})
-		templ_7745c5c3_Err = RatingButton(5, sample.Id.String(), userAlreadyVoted(sample.Ratings[5], userId)).Render(templ.WithChildren(ctx, templ_7745c5c3_Var16), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = RatingButton(5, sample.Id.String(), userAlreadyVoted(sample.Ratings[5], userId) || sample.UserId == userId).Render(templ.WithChildren(ctx, templ_7745c5c3_Var16), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -330,7 +330,7 @@ func RatingSection(sample services.Sample, userId uuid.UUID) templ.Component {
 			}
 			return templ_7745c5c3_Err
 		})
-		templ_7745c5c3_Err = RatingButton(4, sample.Id.String(), userAlreadyVoted(sample.Ratings[4], userId)).Render(templ.WithChildren(ctx, templ_7745c5c3_Var17), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = RatingButton(4, sample.Id.String(), userAlreadyVoted(sample.Ratings[4], userId) || sample.UserId == userId).Render(templ.WithChildren(ctx, templ_7745c5c3_Var17), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -364,7 +364,7 @@ func RatingSection(sample services.Sample, userId uuid.UUID) templ.Component {
 			}
 			return templ_7745c5c3_Err
 		})
-		templ_7745c5c3_Err = RatingButton(3, sample.Id.String(), userAlreadyVoted(sample.Ratings[3], userId)).Render(templ.WithChildren(ctx, templ_7745c5c3_Var18), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = RatingButton(3, sample.Id.String(), userAlreadyVoted(sample.Ratings[3], userId) || sample.UserId == userId).Render(templ.WithChildren(ctx, templ_7745c5c3_Var18), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -398,7 +398,7 @@ func RatingSection(sample services.Sample, userId uuid.UUID) templ.Component {
 			}
 			return templ_7745c5c3_Err
 		})
-		templ_7745c5c3_Err = RatingButton(2, sample.Id.String(), userAlreadyVoted(sample.Ratings[2], userId)).Render(templ.WithChildren(ctx, templ_7745c5c3_Var19), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = RatingButton(2, sample.Id.String(), userAlreadyVoted(sample.Ratings[2], userId) || sample.UserId == userId).Render(templ.WithChildren(ctx, templ_7745c5c3_Var19), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -432,7 +432,7 @@ func RatingSection(sample services.Sample, userId uuid.UUID) templ.Component {
 			}
 			return templ_7745c5c3_Err
 		})
-		templ_7745c5c3_Err = RatingButton(1, sample.Id.String(), userAlreadyVoted(sample.Ratings[1], userId)).Render(templ.WithChildren(ctx, templ_7745c5c3_Var20), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = RatingButton(1, sample.Id.String(), userAlreadyVoted(sample.Ratings[1], userId) || sample.UserId == userId).Render(templ.WithChildren(ctx, templ_7745c5c3_Var20), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

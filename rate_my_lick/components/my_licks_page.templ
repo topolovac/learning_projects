@@ -13,8 +13,9 @@ templ MyLicksPage(samples []services.Sample, userId uuid.UUID) {
 			<h1>My Licks</h1>
 			if len(samples) == 0 {
 				<p>You have not created any licks yet!</p>
-				<a href="/create-lick" class="green-button">Create one now.</a>
+				<a href="/create-lick" class="green-button">Create one now</a>
 			} else {
+				<a href="/create-lick" class="green-button">Create new lick</a>
 				@Licks(samples, userId, false)
 			}
 		</div>
