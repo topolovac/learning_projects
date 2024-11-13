@@ -124,3 +124,9 @@ body {
   visibility: visible;
   transition-delay: 0.65s;
 }
+
+.lick-link {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}

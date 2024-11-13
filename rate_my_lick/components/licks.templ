@@ -30,7 +30,10 @@ templ Licks(samples []services.Sample, userId uuid.UUID, isTopLicksList bool) {
 		<div class={ "lick-container", getColor(index, isTopLicksList) }>
 			<div class="lick-container-row">
 				<div class="lick-container-info">
-					<a href={ templ.SafeURL(fmt.Sprintf("/lick/%s", sample.Id.String())) }>
+					<a
+						href={ templ.SafeURL(fmt.Sprintf("/lick/%s", sample.Id.String())) }
+						class="lick-link"
+					>
 						<h3>{ strconv.Itoa(index + 1) }. { sample.Name }</h3>
 					</a>
 					<small>{ sample.Description }</small>
@@ -47,18 +50,20 @@ templ Licks(samples []services.Sample, userId uuid.UUID, isTopLicksList bool) {
 }
 
 templ Lick(sample services.Sample, userId uuid.UUID) {
-	<div class="lick-container-row">
-		<div class="lick-container-info">
-			<h3>{ sample.Name }</h3>
-			<small>{ sample.Description }</small>
-			<small>Published: { sample.Created.Format(time.RFC1123) }</small>
+	<div class="lick-container">
+		<div class="lick-container-row">
+			<div class="lick-container-info">
+				<h3>{ sample.Name }</h3>
+				<small>{ sample.Description }</small>
+				<small>Published: { sample.Created.Format(time.RFC1123) }</small>
+			</div>
+			<audio controls>
+				<source src={ fmt.Sprintf("/static/licks/%s", sample.Filename) }/>
+				Your browser does not support the audio element.
+			</audio>
 		</div>
-		<audio controls>
-			<source src={ fmt.Sprintf("/static/licks/%s", sample.Filename) }/>
-			Your browser does not support the audio element.
-		</audio>
+		@RatingSection(sample, userId)
 	</div>
-	@RatingSection(sample, userId)
 }
 
 templ RatingSection(sample services.Sample, userId uuid.UUID) {
