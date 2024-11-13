@@ -32,7 +32,6 @@ templ Licks(samples []services.Sample, userId uuid.UUID, isTopLicksList bool) {
 				<div class="lick-container-info">
 					<a
 						href={ templ.SafeURL(fmt.Sprintf("/lick/%s", sample.Id.String())) }
-						class="lick-link"
 					>
 						<h3>{ strconv.Itoa(index + 1) }. { sample.Name }</h3>
 					</a>

@@ -1,6 +1,6 @@
 <div class=\"
 \"><div class=\"lick-container-row\"><div class=\"lick-container-info\"><a href=\"
-\" class=\"lick-link\"><h3>
+\"><h3>
 . 
 </h3></a> <small>
 </small> <small>Published: 

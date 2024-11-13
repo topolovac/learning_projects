@@ -25,16 +25,17 @@ type Sample struct {
 	Filename    string
 	Ratings     Ratings
 	Created     time.Time
+	UserId      uuid.UUID
 }
 
 type SampleService struct {
 	samples []Sample
 }
 
-func (s *SampleService) CreateSample(name, description, filename string) (*Sample, error) {
+func (s *SampleService) CreateSample(name, description, filename string, userId uuid.UUID) (*Sample, error) {
 	ratings := make(map[int][]uuid.UUID)
 
-	sample := &Sample{uuid.New(), name, description, filename, ratings, time.Now()}
+	sample := &Sample{uuid.New(), name, description, filename, ratings, time.Now(), userId}
 	s.samples = append(s.samples, *sample)
 	return sample, nil
 }
@@ -53,6 +54,16 @@ func (s *SampleService) GetSamplesOrderByLatest() []Sample {
 		return s.samples[i].Created.After(s.samples[j].Created)
 	})
 	return s.samples
+}
+
+func (s *SampleService) GetUserSamples(userId uuid.UUID) (samples []Sample) {
+	allSamples := s.GetSamplesOrderByLatest()
+	for _, sample := range allSamples {
+		if sample.UserId == userId {
+			samples = append(samples, sample)
+		}
+	}
+	return
 }
 
 func (s *SampleService) GetSampleById(id uuid.UUID) (*Sample, error) {

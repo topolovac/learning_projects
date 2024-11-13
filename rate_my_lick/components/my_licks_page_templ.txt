@@ -1,0 +1,3 @@
+<div class=\"my-licks-container\"><h1>My Licks</h1>
+<p>You have not created any licks yet!</p><a href=\"/create-lick\" class=\"green-button\">Create one now.</a>
+</div><style>\n        .my-licks-container {\n            display: flex;\n            align-items: center;\n            flex-direction: column;\n        }\n        </style>

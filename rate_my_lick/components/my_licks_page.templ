@@ -1,0 +1,29 @@
+
+package components
+
+import (
+	"github.com/google/uuid"
+	"github.com/topolovac/learning_projects/rate_my_lick/components/partials"
+	"github.com/topolovac/learning_projects/rate_my_lick/services"
+)
+
+templ MyLicksPage(samples []services.Sample, userId uuid.UUID) {
+	@partials.Layout() {
+		<div class="my-licks-container">
+			<h1>My Licks</h1>
+			if len(samples) == 0 {
+				<p>You have not created any licks yet!</p>
+				<a href="/create-lick" class="green-button">Create one now.</a>
+			} else {
+				@Licks(samples, userId, false)
+			}
+		</div>
+		<style>
+        .my-licks-container {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+        </style>
+	}
+}

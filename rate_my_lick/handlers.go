@@ -90,7 +90,12 @@ func (app *application) PublishSampleHandler(c echo.Context) error {
 		return err
 	}
 
-	sample, err := app.sampleService.CreateSample(name, description, filename)
+	userId, err := getUserIdFromCookie(c)
+	if err != nil {
+		return nil
+	}
+
+	sample, err := app.sampleService.CreateSample(name, description, filename, userId)
 	if err != nil {
 		return err
 	}
@@ -139,6 +144,17 @@ func (app *application) LickHandler(c echo.Context) error {
 	}
 
 	return Render(c, http.StatusOK, components.LickPage(*sample, userId))
+}
+
+func (app *application) MyLicksPageHandler(c echo.Context) error {
+	userId, err := getUserIdFromCookie(c)
+	if err != nil {
+		return nil
+	}
+
+	samples := app.sampleService.GetUserSamples(userId)
+
+	return Render(c, http.StatusOK, components.MyLicksPage(samples, userId))
 }
 
 // UTILS

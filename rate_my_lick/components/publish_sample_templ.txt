@@ -1,1 +1,0 @@
-<div>Succesfuly published sample. <a href=\"/home\">Home</a></div>
