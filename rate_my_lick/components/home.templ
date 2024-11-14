@@ -9,7 +9,7 @@ import (
 
 templ HomePage(samples []services.Sample, userId uuid.UUID) {
 	@partials.Layout() {
-		<h1>Licks Of The Day</h1>
+		<h1>Leaderboard</h1>
 		@Licks(samples, userId, true)
 	}
 }
