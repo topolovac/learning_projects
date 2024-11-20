@@ -9,7 +9,7 @@ import (
 
 templ LickPage(sample services.Sample, userId uuid.UUID) {
 	@partials.Layout() {
-		<h1>Lick</h1>
+		<h1>{ sample.Name }</h1>
 		@Lick(sample, userId)
 	}
 }
