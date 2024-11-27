@@ -157,6 +157,18 @@ func (app *application) MyLicksPageHandler(c echo.Context) error {
 	return Render(c, http.StatusOK, components.MyLicksPage(samples, userId))
 }
 
+func (app *application) CustomHTTPErrorHandler(err error, c echo.Context) {
+	code := http.StatusInternalServerError
+	if he, ok := err.(*echo.HTTPError); ok {
+		code = he.Code
+	}
+	c.Logger().Error(err)
+	err = Render(c, code, components.ErrorPage())
+	if err != nil {
+		c.Logger().Error(err)
+	}
+}
+
 // UTILS
 func getUserIdFromCookie(c echo.Context) (uuid.UUID, error) {
 	cookie, err := c.Cookie(GuestUserId)

@@ -24,6 +24,8 @@ func main() {
 	app.sampleService.CreateSample("Society Eddie Vedder", "", "tintuntun_20241027213536", uuid.New())
 
 	e := echo.New()
+	e.HTTPErrorHandler = app.CustomHTTPErrorHandler
+
 	e.Use(middleware.Logger())
 	e.Use(CreateSession)
 	e.Static("/static", "static")
