@@ -2,6 +2,8 @@ package main
 
 import (
 	"github.com/google/uuid"
+	"github.com/gorilla/sessions"
+	"github.com/labstack/echo-contrib/session"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 
@@ -27,8 +29,11 @@ func main() {
 	e.HTTPErrorHandler = app.CustomHTTPErrorHandler
 
 	e.Use(middleware.Logger())
-	e.Use(CreateSession)
+	e.Use(session.Middleware(sessions.NewCookieStore([]byte("secret"))))
+
 	e.Static("/static", "static")
+
+	e.Use(CreateSession)
 
 	e.GET("/", app.HomeHandler)
 	e.GET("/create-lick", app.CreateLickHandler)

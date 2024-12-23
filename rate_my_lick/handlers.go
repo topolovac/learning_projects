@@ -10,6 +10,8 @@ import (
 
 	"github.com/a-h/templ"
 	"github.com/google/uuid"
+	"github.com/gorilla/sessions"
+	"github.com/labstack/echo-contrib/session"
 	"github.com/labstack/echo/v4"
 	"github.com/topolovac/learning_projects/rate_my_lick/components"
 )
@@ -18,12 +20,23 @@ var GuestUserId = "guest_user_id"
 
 func CreateSession(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		_, err := c.Cookie(GuestUserId)
+		sess, err := session.Get("session", c)
 		if err != nil {
-			cookie := new(http.Cookie)
-			cookie.Name = GuestUserId
-			cookie.Value = uuid.New().String()
-			c.SetCookie(cookie)
+			return err
+		}
+
+		userId := sess.Values[GuestUserId]
+
+		if userId == nil {
+			sess.Options = &sessions.Options{
+				Path:     "/",
+				MaxAge:   86400 * 7,
+				HttpOnly: true,
+			}
+			sess.Values[GuestUserId] = uuid.New().String()
+			if err := sess.Save(c.Request(), c.Response()); err != nil {
+				return err
+			}
 		}
 		if err := next(c); err != nil {
 			c.Error(err)
@@ -171,9 +184,9 @@ func (app *application) CustomHTTPErrorHandler(err error, c echo.Context) {
 
 // UTILS
 func getUserIdFromCookie(c echo.Context) (uuid.UUID, error) {
-	cookie, err := c.Cookie(GuestUserId)
+	sess, err := session.Get("session", c)
 	if err != nil {
 		return uuid.UUID{}, err
 	}
-	return uuid.Parse(cookie.Value)
+	return uuid.Parse(fmt.Sprintf("%s", sess.Values[GuestUserId]))
 }
