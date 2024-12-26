@@ -23,12 +23,6 @@ func main() {
 		sampleService: &services.SampleService{},
 	}
 
-	app.sampleService.CreateSample("Cool Song", "Description of very cool song.", "tintuntun_20241027213536", uuid.New())
-	app.sampleService.CreateSample("Also Cool Song", "Artist X", "tintuntun_20241027213536", uuid.New())
-	app.sampleService.CreateSample("Nothing Else Matters", "Metallica. Acustic version", "tintuntun_20241027213536", uuid.New())
-	app.sampleService.CreateSample("Sip", "Tananana", "tintuntun_20241027213536", uuid.New())
-	app.sampleService.CreateSample("Society Eddie Vedder", "", "tintuntun_20241027213536", uuid.New())
-
 	e := echo.New()
 	e.HTTPErrorHandler = app.CustomHTTPErrorHandler
 
